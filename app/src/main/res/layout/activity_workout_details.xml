@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.jamie.exerciseyourdemons.WorkoutDetailsActivity">
+
+    <TextView
+        android:id="@+id/detailsDateTimeTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="12th November '17, 12:38"/>
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/detailsMapView"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detailsDateTimeTextView"/>
+
+    <TextView
+        android:id="@+id/detailsTimeTextView"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textAlignment="textStart"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/verticalRule"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detailsMapView"
+        tools:text="3:32:06"/>
+
+    <TextView
+        android:id="@+id/detailsDistanceTextView"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:textAlignment="textEnd"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/verticalRule"
+        app:layout_constraintTop_toBottomOf="@+id/detailsMapView"
+        tools:text="60.78km"/>
+
+    <ImageView
+        android:id="@+id/verticalRule"
+        android:layout_width="1dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/detailsDistanceTextView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/detailsTimeTextView"
+        app:layout_constraintTop_toBottomOf="@+id/detailsMapView"
+        app:srcCompat="@color/cardview_dark_background"
+        android:contentDescription="@string/separator_line"/>
+
+    <TextView
+        android:id="@+id/timeLabel"
+        android:layout_width="150dp"
+        android:layout_height="20dp"
+        android:text="@string/time"
+        app:layout_constraintStart_toStartOf="@+id/detailsTimeTextView"
+        app:layout_constraintTop_toBottomOf="@+id/detailsTimeTextView"/>
+
+    <TextView
+        android:id="@+id/distanceLabel"
+        android:layout_width="150dp"
+        android:layout_height="20dp"
+        android:text="@string/distance"
+        android:textAlignment="textEnd"
+        app:layout_constraintEnd_toEndOf="@+id/detailsDistanceTextView"
+        app:layout_constraintTop_toBottomOf="@+id/detailsDistanceTextView"/>
+
+    <ImageView
+        android:id="@+id/horizontalRule"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timeLabel"
+        app:srcCompat="@color/cardview_dark_background"
+        android:contentDescription="@string/separator_line"/>
+</android.support.constraint.ConstraintLayout>

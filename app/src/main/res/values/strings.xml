@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">ExerciseYourDemons</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="small_static_map_of_location">Small static map of location</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="cancel">Cancel</string>
+    <string name="separator_line">Separator Line</string>
+    <string name="time">TIME</string>
+    <string name="distance">DISTANCE</string>
+</resources>
