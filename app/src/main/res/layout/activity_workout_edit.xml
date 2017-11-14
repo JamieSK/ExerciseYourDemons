@@ -8,7 +8,7 @@
     tools:context="com.example.jamie.exerciseyourdemons.WorkoutEditActivity">
 
     <Button
-        android:id="@+id/editTimeButton"
+        android:id="@+id/editDurationButton"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,6 +16,7 @@
         android:layout_marginTop="8dp"
         android:onClick="durationPicker"
         android:text="@string/time"
+        android:textAlignment="textStart"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
@@ -31,7 +32,7 @@
         android:text="@string/distance"
         android:textAllCaps="false"
         app:layout_constraintEnd_toStartOf="@+id/speedButton"
-        app:layout_constraintStart_toEndOf="@+id/editTimeButton"
+        app:layout_constraintStart_toEndOf="@+id/editDurationButton"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <Button
@@ -41,6 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
+        android:textAlignment="textEnd"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -70,33 +72,36 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editMapFragment"/>
 
-    <EditText
-        android:id="@+id/editDateView"
+    <Button
+        android:id="@+id/editDateButton"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="@string/date"
-        android:inputType="date"
-        app:layout_constraintEnd_toStartOf="@+id/editTimeView"
+        android:onClick="datePicker"
+        android:text="@string/date"
+        android:textAlignment="textStart"
+        app:layout_constraintEnd_toStartOf="@+id/editTimeButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/exerciseTypeSpinner"/>
 
-    <EditText
-        android:id="@+id/editTimeView"
+    <Button
+        android:id="@+id/editTimeButton"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="@string/time_lower"
-        android:inputType="time"
+        android:onClick="timePicker"
+        android:text="@string/time_lower"
         android:textAlignment="textEnd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/editDateView"
+        app:layout_constraintStart_toEndOf="@+id/editDateButton"
         app:layout_constraintTop_toBottomOf="@+id/exerciseTypeSpinner"/>
 
     <EditText
@@ -112,7 +117,7 @@
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTimeView"/>
+        app:layout_constraintTop_toBottomOf="@+id/editTimeButton"/>
 
     <Button
         android:id="@+id/editSaveButton"

@@ -6,6 +6,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.location.Location;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.CursorAdapter;
+import android.widget.SpinnerAdapter;
 
 import java.text.DateFormat;
 import java.time.LocalDateTime;
@@ -169,5 +174,13 @@ public class DBHelper extends SQLiteOpenHelper {
     }
     cursor.close();
     return workouts;
+  }
+
+  public Cursor getTypeCursor(Context context) {
+    SQLiteDatabase db = getReadableDatabase();
+
+    Cursor cursor = db.rawQuery("SELECT " + WORKOUT_TYPE_COLUMN_ID + " AS _id, " + WORKOUT_TYPE_COLUMN_NAME + " FROM " + WORKOUT_TYPE_TABLE_NAME, null);
+
+    return cursor;
   }
 }

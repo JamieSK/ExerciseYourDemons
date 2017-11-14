@@ -1,6 +1,7 @@
 package com.example.jamie.exerciseyourdemons;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,8 @@ public class WorkoutsAdapter extends ArrayAdapter<Workout> {
     super(context, 0, workouts);
   }
 
-  public View getView(int position, View view, ViewGroup parent) {
+  @NonNull
+  public View getView(int position, View view, @NonNull ViewGroup parent) {
     if (view == null) {
       view = LayoutInflater.from(getContext()).inflate(R.layout.workout_item, parent, false);
     }
