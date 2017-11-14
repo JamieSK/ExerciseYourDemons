@@ -33,7 +33,9 @@
             android:name=".WorkoutDetailsActivity"
             android:parentActivityName=".FeedActivity">
         </activity>
-        <activity android:name=".WorkoutEditActivity">
+        <activity
+            android:name=".WorkoutEditActivity"
+            android:label="@string/edit_workout">
         </activity>
     </application>
 

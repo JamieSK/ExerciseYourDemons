@@ -20,14 +20,17 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="12th November '17, 12:38"/>
 
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/detailsMapView"
+    <fragment
+        class="com.google.android.gms.maps.MapFragment"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/editMapFragment"
         android:layout_width="0dp"
         android:layout_height="150dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detailsDateTimeTextView"/>
+        app:layout_constraintTop_toBottomOf="@+id/detailsDateTimeTextView"
+        tools:context="com.example.mapwithmarker.MapsMarkerActivity"/>
 
     <TextView
         android:id="@+id/detailsTimeTextView"
@@ -40,7 +43,7 @@
         app:layout_constraintEnd_toStartOf="@+id/verticalRule"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detailsMapView"
+        app:layout_constraintTop_toBottomOf="@+id/editMapFragment"
         tools:text="3:32:06"/>
 
     <TextView
@@ -54,7 +57,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/verticalRule"
-        app:layout_constraintTop_toBottomOf="@+id/detailsMapView"
+        app:layout_constraintTop_toBottomOf="@+id/editMapFragment"
         tools:text="60.78km"/>
 
     <ImageView
@@ -62,12 +65,12 @@
         android:layout_width="1dp"
         android:layout_height="60dp"
         android:layout_marginTop="8dp"
+        android:contentDescription="@string/separator_line"
         app:layout_constraintEnd_toStartOf="@+id/detailsDistanceTextView"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/detailsTimeTextView"
-        app:layout_constraintTop_toBottomOf="@+id/detailsMapView"
-        app:srcCompat="@color/cardview_dark_background"
-        android:contentDescription="@string/separator_line"/>
+        app:layout_constraintTop_toBottomOf="@+id/editMapFragment"
+        app:srcCompat="@color/cardview_dark_background"/>
 
     <TextView
         android:id="@+id/timeLabel"

@@ -14,13 +14,11 @@ public class DeleteConfirmationDialogFragment extends DialogFragment {
   public interface DeleteDialogListener {
     void onConfirmDelete();
   }
-
   DeleteDialogListener listener;
 
   @Override
   public void onAttach(Context context) {
     super.onAttach(context);
-
     listener = (DeleteDialogListener) context;
   }
 

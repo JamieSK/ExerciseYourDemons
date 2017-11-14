@@ -9,4 +9,10 @@
     <string name="separator_line">Separator Line</string>
     <string name="time">TIME</string>
     <string name="distance">DISTANCE</string>
+    <string name="edit_workout">Edit Workout</string>
+    <string name="ok">OK</string>
+    <string name="description">Description</string>
+    <string name="save">Save</string>
+    <string name="date">date</string>
+    <string name="time_lower">time</string>
 </resources>

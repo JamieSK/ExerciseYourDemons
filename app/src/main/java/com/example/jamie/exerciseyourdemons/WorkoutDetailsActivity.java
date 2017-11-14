@@ -1,24 +1,28 @@
 package com.example.jamie.exerciseyourdemons;
 
 import android.app.DialogFragment;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
-public class WorkoutDetailsActivity extends AppCompatActivity implements DeleteConfirmationDialogFragment.DeleteDialogListener {
+public class WorkoutDetailsActivity extends AppCompatActivity
+        implements DeleteConfirmationDialogFragment.DeleteDialogListener, OnMapReadyCallback {
   private Workout workout;
   private TextView detailsDateTimeTextView;
   private TextView detailsTimeTextView;
   private TextView detailsDistanceTextView;
-  private MapView detailsMapView;
+  private MapFragment detailsMapFragment;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +43,8 @@ public class WorkoutDetailsActivity extends AppCompatActivity implements DeleteC
     detailsDistanceTextView = findViewById(R.id.detailsDistanceTextView);
     detailsDistanceTextView.setText(workout.getPrettyDistance());
 
-    detailsMapView = findViewById(R.id.detailsMapView);
-//    detailsMapView.getMapAsync();
+    detailsMapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.editMapFragment);
+    detailsMapFragment.getMapAsync(this);
   }
 
   @Override
@@ -70,5 +74,15 @@ public class WorkoutDetailsActivity extends AppCompatActivity implements DeleteC
 
     Intent intent = new Intent(this, FeedActivity.class);
     startActivity(intent);
+  }
+
+  @Override
+  public void onMapReady(GoogleMap map) {
+    double latitude = workout.getLocation().getLatitude();
+    double longitude = workout.getLocation().getLongitude();
+    LatLng position = new LatLng(latitude, longitude);
+
+    map.addMarker(new MarkerOptions().position(position).title("Start"));
+    map.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 15));
   }
 }
