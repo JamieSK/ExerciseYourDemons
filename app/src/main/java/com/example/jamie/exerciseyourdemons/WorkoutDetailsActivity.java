@@ -22,6 +22,7 @@ public class WorkoutDetailsActivity extends AppCompatActivity
   private TextView detailsDateTimeTextView;
   private TextView detailsTimeTextView;
   private TextView detailsDistanceTextView;
+  private TextView detailsSpeedView;
   private MapFragment detailsMapFragment;
 
   @Override
@@ -43,6 +44,9 @@ public class WorkoutDetailsActivity extends AppCompatActivity
     detailsDistanceTextView = findViewById(R.id.detailsDistanceTextView);
     detailsDistanceTextView.setText(workout.getPrettyDistance());
 
+    detailsSpeedView = findViewById(R.id.detailsSpeedTextView);
+    detailsSpeedView.setText(workout.getPrettySpeed());
+
     detailsMapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.editMapFragment);
     detailsMapFragment.getMapAsync(this);
   }
@@ -57,6 +61,7 @@ public class WorkoutDetailsActivity extends AppCompatActivity
   public boolean onOptionsItemSelected(MenuItem item){
     if (item.getItemId() == R.id.menu_edit) {
       Intent intent = new Intent(this, WorkoutEditActivity.class);
+      intent.putExtra("id", workout.getId());
       startActivity(intent);
       return true;
     } else if (item.getItemId() == R.id.menu_delete) {

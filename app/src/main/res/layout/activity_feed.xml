@@ -33,5 +33,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@color/colorAccent"
         android:focusable="true"
-        android:src="@drawable/plus"/>
+        android:src="@drawable/plus"
+        android:onClick="addWorkout"/>
 </android.support.constraint.ConstraintLayout>

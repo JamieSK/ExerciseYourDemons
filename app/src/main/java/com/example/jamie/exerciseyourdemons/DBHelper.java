@@ -6,14 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.location.Location;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.CursorAdapter;
-import android.widget.SpinnerAdapter;
 
-import java.text.DateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -32,13 +25,13 @@ public class DBHelper extends SQLiteOpenHelper {
   public static final String WORKOUT_COLUMN_ROUTE_ID = "route_id";
   public static final String WORKOUT_COLUMN_DATETIME = "datetime";
   public static final String WORKOUT_COLUMN_DISTANCE = "distance";
-  public static final String WORKOUT_COLUMN_SPEED = "speed";
+  public static final String WORKOUT_COLUMN_TIME = "time";
   public static final String WORKOUT_COLUMN_LATITUDE = "latitude";
   public static final String WORKOUT_COLUMN_LONGITUDE = "longitude";
   public static final String WORKOUT_COLUMN_DESCRIPTION = "description";
 
   public DBHelper(Context context) {
-    super(context, DATABASE_NAME, null, 1);
+    super(context, DATABASE_NAME, null, 3);
   }
 
   public void onConfigure(SQLiteDatabase db) {
@@ -54,10 +47,20 @@ public class DBHelper extends SQLiteOpenHelper {
             + WORKOUT_COLUMN_TYPE_ID + " INTEGER REFERENCES " + WORKOUT_TYPE_TABLE_NAME + "(" + WORKOUT_TYPE_COLUMN_ID + ") ON DELETE CASCADE, "
             + WORKOUT_COLUMN_DATETIME + " INTEGER, "
             + WORKOUT_COLUMN_DISTANCE + " INTEGER, "
-            + WORKOUT_COLUMN_SPEED + " INTEGER, "
+            + WORKOUT_COLUMN_TIME + " INTEGER, "
             + WORKOUT_COLUMN_LATITUDE + " TEXT, "
             + WORKOUT_COLUMN_LONGITUDE + " TEXT, "
             + WORKOUT_COLUMN_DESCRIPTION + " TEXT);" );
+
+    ContentValues cv = new ContentValues();
+    cv.put(WORKOUT_TYPE_COLUMN_NAME, "Run");
+    db.insert(WORKOUT_TYPE_TABLE_NAME, null, cv);
+    ContentValues cv2 = new ContentValues();
+    cv2.put(WORKOUT_TYPE_COLUMN_NAME, "Swim");
+    db.insert(WORKOUT_TYPE_TABLE_NAME, null, cv2);
+    ContentValues cv3 = new ContentValues();
+    cv3.put(WORKOUT_TYPE_COLUMN_NAME, "Cycle");
+    db.insert(WORKOUT_TYPE_TABLE_NAME, null, cv3);
   }
 
   public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -82,12 +85,27 @@ public class DBHelper extends SQLiteOpenHelper {
     cv.put(WORKOUT_COLUMN_TYPE_ID, workout.getTypeId());
     cv.put(WORKOUT_COLUMN_DATETIME, workout.getDateLong());
     cv.put(WORKOUT_COLUMN_DISTANCE, workout.getDistance());
-    cv.put(WORKOUT_COLUMN_SPEED, workout.getSpeed());
+    cv.put(WORKOUT_COLUMN_TIME, workout.getTime());
     cv.put(WORKOUT_COLUMN_LATITUDE, workout.getLatitudeString());
     cv.put(WORKOUT_COLUMN_LONGITUDE, workout.getLongitudeString());
     cv.put(WORKOUT_COLUMN_DESCRIPTION, workout.getDescription());
 
     return (int) db.insert(WORKOUT_TABLE_NAME, null, cv);
+  }
+
+  public void update(Workout workout) {
+    SQLiteDatabase db = this.getWritableDatabase();
+    ContentValues cv = new ContentValues();
+
+    cv.put(WORKOUT_COLUMN_TYPE_ID, workout.getTypeId());
+    cv.put(WORKOUT_COLUMN_DATETIME, workout.getDateLong());
+    cv.put(WORKOUT_COLUMN_DISTANCE, workout.getDistance());
+    cv.put(WORKOUT_COLUMN_TIME, workout.getTime());
+    cv.put(WORKOUT_COLUMN_LATITUDE, workout.getLatitudeString());
+    cv.put(WORKOUT_COLUMN_LONGITUDE, workout.getLongitudeString());
+    cv.put(WORKOUT_COLUMN_DESCRIPTION, workout.getDescription());
+
+    db.update(WORKOUT_TABLE_NAME, cv, WORKOUT_COLUMN_ID + " = ?", new String[] {String.valueOf(workout.getId())});
   }
 
   public void delete(Workout workout, Context context) {
@@ -123,7 +141,7 @@ public class DBHelper extends SQLiteOpenHelper {
     ExerciseType exerciseType = findExerciseType(typeId);
     Date date = new Date(cursor.getLong(cursor.getColumnIndex(WORKOUT_COLUMN_DATETIME)));
     int distance = cursor.getInt(cursor.getColumnIndex(WORKOUT_COLUMN_DISTANCE));
-    int speed = cursor.getInt(cursor.getColumnIndex(WORKOUT_COLUMN_SPEED));
+    int speed = cursor.getInt(cursor.getColumnIndex(WORKOUT_COLUMN_TIME));
     Location location = new Location("");
     location.setLatitude(Double.valueOf(cursor.getString(cursor.getColumnIndex(WORKOUT_COLUMN_LATITUDE))));
     location.setLongitude(Double.valueOf(cursor.getString(cursor.getColumnIndex(WORKOUT_COLUMN_LONGITUDE))));
@@ -137,7 +155,6 @@ public class DBHelper extends SQLiteOpenHelper {
     SQLiteDatabase db = this.getReadableDatabase();
 
     Cursor cursor = db.rawQuery("SELECT * FROM " + WORKOUT_TYPE_TABLE_NAME, null);
-    cursor.moveToFirst();
 
     while (cursor.moveToNext()) {
       int id = cursor.getInt(cursor.getColumnIndex(WORKOUT_TYPE_COLUMN_ID));
@@ -155,7 +172,6 @@ public class DBHelper extends SQLiteOpenHelper {
     SQLiteDatabase db = this.getReadableDatabase();
 
     Cursor cursor = db.rawQuery("SELECT * FROM " + WORKOUT_TABLE_NAME, null);
-    cursor.moveToFirst();
 
     while (cursor.moveToNext()) {
       int id = cursor.getInt(cursor.getColumnIndex(WORKOUT_COLUMN_ID));
@@ -163,7 +179,7 @@ public class DBHelper extends SQLiteOpenHelper {
       ExerciseType type = findExerciseType(typeId);
       Date date = new Date(cursor.getLong(cursor.getColumnIndex(WORKOUT_COLUMN_DATETIME)));
       int distance = cursor.getInt(cursor.getColumnIndex(WORKOUT_COLUMN_DISTANCE));
-      int speed = cursor.getInt(cursor.getColumnIndex(WORKOUT_COLUMN_SPEED));
+      int speed = cursor.getInt(cursor.getColumnIndex(WORKOUT_COLUMN_TIME));
       Location location = new Location("");
       location.setLatitude(Double.valueOf(cursor.getString(cursor.getColumnIndex(WORKOUT_COLUMN_LATITUDE))));
       location.setLongitude(Double.valueOf(cursor.getString(cursor.getColumnIndex(WORKOUT_COLUMN_LONGITUDE))));

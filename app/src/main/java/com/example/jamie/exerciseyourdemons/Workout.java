@@ -25,30 +25,30 @@ public class Workout {
   private ExerciseType type;
   private Date date;
   private int distance; // In metres.
-  private int speed; // In metres per second.
+  private double speed; // In metres per second.
   private int time; // In seconds.
   private Location location;
   private String description;
 
-  public Workout(ExerciseType type, Date date, int distance, int speed, Location location, String description) {
+  public Workout(ExerciseType type, Date date, int distance, int time, Location location, String description) {
     this.type = type;
     this.date = date;
     this.distance = distance;
-    this.speed = speed;
+    this.speed = Double.valueOf(distance)/time;
     this.location = location;
     this.description = description;
-    this.time = distance/speed;
+    this.time = time;
   }
 
-  public Workout(int id, ExerciseType type, Date date, int distance, int speed, Location location, String description) {
+  public Workout(int id, ExerciseType type, Date date, int distance, int time, Location location, String description) {
     this.id = id;
     this.type = type;
     this.date = date;
     this.distance = distance;
-    this.speed = speed;
+    this.speed = Double.valueOf(distance)/time;
     this.location = location;
     this.description = description;
-    this.time = distance/speed;
+    this.time = time;
   }
 
   public Location getLocation() {
@@ -71,7 +71,7 @@ public class Workout {
     return distance;
   }
 
-  public int getSpeed() {
+  public double getSpeed() {
     return speed;
   }
 
@@ -85,6 +85,10 @@ public class Workout {
 
   public String getLongitudeString() {
     return String.valueOf(location.getLongitude());
+  }
+
+  public Date getDate() {
+    return date;
   }
 
   public long getDateLong() {
@@ -116,6 +120,13 @@ public class Workout {
     }
   }
 
+  public String getPrettySpeed() {
+    double distance = this.distance / 1000.0;
+    double time = this.time / 3600.0;
+    String speed = String.format(Locale.UK, "%.2f", distance / time);
+    return speed + DistanceUnit.KILOMETRES.getSpeedAbbr();
+  }
+
   public String getFeedSummary() {
     SimpleDateFormat dF = new SimpleDateFormat("EEEE", Locale.UK);
     String weekday = dF.format(date);
@@ -128,10 +139,16 @@ public class Workout {
     return weekday + " " + type.getName();
   }
 
-  public void save(Context context) {
+  public int save(Context context) {
     DBHelper dbHelper = new DBHelper(context);
     id = dbHelper.save(this);
     saveMiniMap(context);
+    return id;
+  }
+
+  public void update(Context context) {
+    DBHelper dbHelper = new DBHelper(context);
+    dbHelper.update(this);
   }
 
   private void saveMiniMap(final Context context) {

@@ -1,8 +1,10 @@
 package com.example.jamie.exerciseyourdemons;
 
+import android.Manifest;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationProvider;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -20,6 +22,9 @@ public class FeedActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_feed);
+    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+
+
     dbHelper = new DBHelper(this);
 
     ArrayList<Workout> workoutList = dbHelper.allWorkouts();
@@ -36,16 +41,11 @@ public class FeedActivity extends AppCompatActivity {
     i.putExtra("id", workout.getId());
     startActivity(i);
   }
+
+  public void addWorkout(View view) {
+    Intent i = new Intent(this, WorkoutEditActivity.class);
+    i.putExtra("id", 0);
+    startActivity(i);
+  }
 }
-
-
-
-//  ExerciseType type = new ExerciseType("Run");
-//    type.save(this);
-//
-//            Location location = new Location("");
-//            location.setLatitude(56.8793776);
-//            location.setLongitude(-4.2818013);
-//            Workout workout = new Workout(type, new Date(), 10000, 5, location, "Stuff");
-//            workout.save(this);
 
