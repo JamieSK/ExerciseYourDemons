@@ -103,6 +103,7 @@ public class WorkoutEditActivity extends AppCompatActivity implements DurationDi
     } else {
       updateWorkout(dbHelper.findWorkout(id));
     }
+    mapFragment.getMapAsync(this);
   }
 
   private void newWorkout() {
@@ -119,8 +120,6 @@ public class WorkoutEditActivity extends AppCompatActivity implements DurationDi
     day = cal.get(Calendar.DAY_OF_MONTH);
     hourTime = cal.get(Calendar.HOUR_OF_DAY);
     minuteTime = cal.get(Calendar.MINUTE);
-
-    mapFragment.getMapAsync(this);
   }
 
   private void updateWorkout(Workout workout) {
@@ -150,7 +149,6 @@ public class WorkoutEditActivity extends AppCompatActivity implements DurationDi
     typeSpinner.setSelection(workout.getTypeId() - 1);
 
     currentLocation = workout.getLocation();
-    mapFragment.getMapAsync(this);
   }
 
   private void getSpinner() {
